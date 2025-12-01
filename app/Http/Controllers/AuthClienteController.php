@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthClienteController extends Controller
 {
-    // REGISTRO
+   
     public function register(Request $request)
     {
         $request->validate([
@@ -29,7 +29,7 @@ class AuthClienteController extends Controller
         ], 201);
     }
 
-    // LOGIN
+
     public function login(Request $request)
     {
         $request->validate([
@@ -53,7 +53,7 @@ class AuthClienteController extends Controller
         ]);
     }
 
-    // ENVIAR CÓDIGO (4 dígitos)
+   
     public function enviarCodigo(Request $request)
     {
         $request->validate([
@@ -66,21 +66,20 @@ class AuthClienteController extends Controller
             return response()->json(['message' => 'Cliente no existe'], 404);
         }
 
-        // código simple de 4 dígitos
+
         $codigo = rand(1000, 9999);
 
         $cliente->codigo_verificacion = $codigo;
         $cliente->save();
 
-        // aquí en un proyecto real lo mandarías por correo;
-        // para pruebas lo devolvemos en la respuesta
+      
         return response()->json([
             'message'     => 'Código generado',
             'codigo_demo' => $codigo,
         ]);
     }
 
-    // VALIDAR CÓDIGO
+
     public function validarCodigo(Request $request)
     {
         $request->validate([
